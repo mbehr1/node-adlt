@@ -1,0 +1,36 @@
+{
+  "name": "node-adlt",
+  "version": "0.16.1",
+  "description": "A npm module for using adlt binary in a Node project. Used e.g. by VS Code extension dlt-logs.",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "postinstall": "node ./lib/postinstall.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbehr1/node-adlt"
+  },
+  "keywords": [
+    "dlt",
+    "binaries",
+    "log+trace"
+  ],
+  "author": "Matthias Behr",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/mbehr1/node-adlt/issues"
+  },
+  "homepage": "https://github.com/mbehr1/node-adlt#readme",
+  "dependencies": {
+    "https-proxy-agent": "^5.0.0",
+    "proxy-from-env": "^1.1.0"
+  },
+  "overrides": {
+    "agent-base": "^6.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.0"
+  }
+}
