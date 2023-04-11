@@ -1,6 +1,6 @@
 {
   "name": "node-adlt",
-  "version": "0.31.0",
+  "version": "0.32.0",
   "description": "A npm module for using adlt binary in a Node project. Used e.g. by VS Code extension dlt-logs.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
