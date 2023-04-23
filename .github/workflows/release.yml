@@ -1,0 +1,38 @@
+name: Release and publish package to npm
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: 'Release version to manually set & publish. E.g. v0.34.0'
+        required: true
+  # release:
+  #  types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install -g npm
+      - name: bump release version
+        run: |
+          echo "NEW_VERSION= $RELEASE_VERSION" >> $GITHUB_ENV
+        env:
+          RELEASE_VERSION: ${{ github.event.inputs.release-version }}
+      - name: print version
+        run: |
+          echo "VERSION= ${{ env.NEW_VERSION }}"
+      - run: npm ci
+      - name: push changes to repository
+        env:
+        run: |
+          git push origin && git push --tags
+      - run: npm publish --dry-run --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
