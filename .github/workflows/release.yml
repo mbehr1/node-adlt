@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       release-version:
-        description: 'Release version to manually set & publish. E.g. v0.34.0'
+        description: 'Release version to manually set & publish. E.g. 0.34.0'
         required: true
   # release:
   #  types: [created]
@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
       - uses: actions/checkout@v3
@@ -22,17 +22,30 @@ jobs:
       - run: npm install -g npm
       - name: bump release version
         run: |
-          echo "NEW_VERSION= $RELEASE_VERSION" >> $GITHUB_ENV
+          echo "NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_VERSION)" >> $GITHUB_ENV
+          cat package.json
         env:
           RELEASE_VERSION: ${{ github.event.inputs.release-version }}
       - name: print version
         run: |
-          echo "VERSION= ${{ env.NEW_VERSION }}"
+          echo "VERSION=${{ env.NEW_VERSION }}"
       - run: npm ci
       - name: push changes to repository
-        env:
+        #env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push origin && git push --tags
-      - run: npm publish --dry-run --provenance --access public
+          git config user.name github-actions
+          git config user.email mbehr+node_adlt_actions@mcbehr.de
+          git status
+          # touch test/test.txt
+          #echo "NEW_VERSION=${{ env.NEW_VERSION }}" >> test/test.txt
+          # git add test/test.txt
+          git add package.json
+          git commit -m "chore(version): ${{ env.NEW_VERSION }}"
+          git tag ${{ env.NEW_VERSION }}
+          git status
+          git push && git push --tags
+          echo git push origin && echo git push --tags
+      - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
