@@ -7,12 +7,14 @@ on:
         required: true
   # release:
   #  types: [created]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
+
+permissions:
       contents: write
       id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -47,5 +49,4 @@ jobs:
           git push && git push --tags
           echo git push origin && echo git push --tags
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
