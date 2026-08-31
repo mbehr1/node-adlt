@@ -18,7 +18,7 @@
     "log+trace"
   ],
   "author": "Matthias Behr",
-  "license": "CC-BY-NC-SA-4.0",
+  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/mbehr1/node-adlt/issues"
   },

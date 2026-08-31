@@ -27,4 +27,4 @@ You can produce an API key, set the GITHUB_TOKEN environment var to it, and vsco
 
 ### License
 
-This code/project is licensed under MIT license (as its mainly a copy+paste from microsoft/vscode-ripgrep repo/examples). But the adlt binary installed is licensed under CC-BY-NC-SA-4.0 so I reflect that here to avoid confusion on installing it in a node project.
+This code/project is licensed under MIT license (as its mainly a copy+paste from microsoft/vscode-ripgrep repo/examples). But the adlt binary installed is licensed under MPL-2.0 so I reflect that here to avoid confusion on installing it in a node project.
